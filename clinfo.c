@@ -22,7 +22,7 @@
 #include <math.h>
 
 #ifdef __APPLE__
-	#include <OpenCL/cl.h>
+	#include <OpenCL/opencl.h>
 #else
 	#include <CL/cl.h>
 #endif
@@ -411,6 +411,202 @@ void printPlatformInfo(const char* argv0, cl_platform_id platform, cl_platform_i
 	free(buffer);
 }
 
+#define CASE(n) case n: return #n;
+
+const char* chanOrder(cl_channel_order o)
+{
+    switch(o)
+    {
+        #ifdef CL_R
+        CASE(CL_R)
+        #endif
+        #ifdef CL_Rx
+        CASE(CL_Rx)
+        #endif
+        #ifdef CL_A
+        CASE(CL_A)
+        #endif
+
+        #ifdef CL_INTENSITY
+        CASE(CL_INTENSITY)
+        #endif
+        #ifdef CL_LUMINANCE
+        CASE(CL_LUMINANCE)
+        #endif
+
+        #ifdef CL_DEPTH
+        CASE(CL_DEPTH)
+        #endif
+        #ifdef CL_DEPTH_STENCIL
+        CASE(CL_DEPTH_STENCIL)
+        #endif
+
+        #ifdef CL_RG
+        CASE(CL_RG)
+        #endif
+        #ifdef CL_RGx
+        CASE(CL_RGx)
+        #endif
+        #ifdef CL_RA
+        CASE(CL_RA)
+        #endif
+
+        #ifdef CL_RGB
+        CASE(CL_RGB)
+        #endif
+        #ifdef CL_RGBx
+        CASE(CL_RGBx)
+        #endif
+
+        #ifdef CL_RGBA
+        CASE(CL_RGBA)
+        #endif
+        #ifdef CL_ARGB
+        CASE(CL_ARGB)
+        #endif
+        #ifdef CL_BGRA
+        CASE(CL_BGRA)
+        #endif
+        #ifdef CL_ABGR
+        CASE(CL_ABGR)
+        #endif
+
+        #ifdef CL_sRGB
+        CASE(CL_sRGB)
+        #endif
+        #ifdef CL_sRGBx
+        CASE(CL_sRGBx)
+        #endif
+        #ifdef CL_sRGBA
+        CASE(CL_sRGBA)
+        #endif
+        #ifdef CL_sBGRA
+        CASE(CL_sBGRA)
+        #endif
+
+        // cl_APPLE_fixed_alpha_channel_orders
+        #ifdef CL_1RGB_APPLE
+        CASE(CL_1RGB_APPLE)
+        #endif
+        #ifdef CL_BGR1_APPLE
+        CASE(CL_BGR1_APPLE)
+        #endif
+
+        // Apple CoreImage CL-GPU support
+        #ifdef CL_ABGR_APPLE
+        CASE(CL_ABGR_APPLE)
+        #endif
+
+        // cl_img_yuv_image
+         #ifdef CL_NV21_IMG
+        CASE(CL_NV21_IMG)
+        #endif
+         #ifdef CL_YV12_IMG
+        CASE(CL_YV12_IMG)
+        #endif
+
+        // cl_intel_packed_yuv
+        #ifdef CL_YUYV_INTEL
+        CASE(CL_YUYV_INTEL)
+        #endif
+        #ifdef CL_UYVY_INTEL
+        CASE(CL_UYVY_INTEL)
+        #endif
+        #ifdef CL_YVYU_INTEL
+        CASE(CL_YVYU_INTEL)
+        #endif
+        #ifdef CL_VYUY_INTEL
+        CASE(CL_VYUY_INTEL)
+        #endif
+
+        // cl_intel_planar_yuv
+        #ifdef CL_NV12_INTEL
+        CASE(CL_NV12_INTEL)
+        #endif
+    }
+
+    char* str = malloc(12);
+    sprintf(str, "0x%x", o);
+
+    return str;
+}
+
+const char* chanType(cl_channel_type o)
+{
+    switch (o)
+    {
+        #ifdef CL_SNORM_INT8
+        CASE(CL_SNORM_INT8)
+        #endif
+        #ifdef CL_SNORM_INT16
+        CASE(CL_SNORM_INT16)
+        #endif
+        #ifdef CL_UNORM_INT8
+        CASE(CL_UNORM_INT8)
+        #endif
+        #ifdef CL_UNORM_INT16
+        CASE(CL_UNORM_INT16)
+        #endif
+
+        #ifdef CL_UNORM_SHORT_565
+        CASE(CL_UNORM_SHORT_565)
+        #endif
+        #ifdef CL_UNORM_SHORT_555
+        CASE(CL_UNORM_SHORT_555)
+        #endif
+        #ifdef CL_UNORM_INT_101010
+        CASE(CL_UNORM_INT_101010)
+        #endif
+        #ifdef CL_UNORM_INT_101010_2
+        CASE(CL_UNORM_INT_101010_2)
+        #endif
+
+        #ifdef CL_SIGNED_INT8
+        CASE(CL_SIGNED_INT8)
+        #endif
+        #ifdef CL_SIGNED_INT16
+        CASE(CL_SIGNED_INT16)
+        #endif
+        #ifdef CL_SIGNED_INT32
+        CASE(CL_SIGNED_INT32)
+        #endif
+
+        #ifdef CL_UNSIGNED_INT8
+        CASE(CL_UNSIGNED_INT8)
+        #endif
+        #ifdef CL_UNSIGNED_INT16
+        CASE(CL_UNSIGNED_INT16)
+        #endif
+        #ifdef CL_UNSIGNED_INT32
+        CASE(CL_UNSIGNED_INT32)
+        #endif
+
+        #ifdef CL_HALF_FLOAT
+        CASE(CL_HALF_FLOAT)
+        #endif
+        #ifdef CL_FLOAT
+        CASE(CL_FLOAT)
+        #endif
+
+        #ifdef CL_UNORM_INT24
+        CASE(CL_UNORM_INT24)
+        #endif
+
+        // cl_APPLE_biased_fixed_point_image_formats
+        #ifdef CL_SFIXED14_APPLE
+        CASE(CL_SFIXED14_APPLE)
+        #endif
+        #ifdef CL_BIASED_HALF_APPLE
+        CASE(CL_BIASED_HALF_APPLE)
+        #endif
+    }
+
+    char* str = malloc(12);
+    sprintf(str, "0x%x", o);
+
+    return str;
+}
+
 void printDeviceInfo(const char* argv0, cl_device_id device, cl_device_info param, const char* name, size_t indent, Formatter format, Printer print)
 {
 	size_t buffer_size;
@@ -418,7 +614,7 @@ void printDeviceInfo(const char* argv0, cl_device_id device, cl_device_info para
 	if (status != CL_SUCCESS)
 	{
 		fprintf(stderr, "%s: Cannot get the size of the '%s' device parameter.\n", argv0, name);
-		exit(EXIT_FAILURE);
+		return;
 	}
 
 	char* buffer = malloc(buffer_size);
@@ -434,6 +630,41 @@ void printDeviceInfo(const char* argv0, cl_device_id device, cl_device_info para
 	free(buffer);
 }
 
+void printSupportedImageFormats(const char* argv0, cl_device_id device, size_t indent)
+{
+	cl_uint numFormats = 0;
+	cl_context clContext = clCreateContext(NULL, 1, &device, NULL, NULL, NULL);
+	cl_int status = clGetSupportedImageFormats(clContext, CL_MEM_READ_WRITE, CL_MEM_OBJECT_IMAGE2D, 0, NULL, &numFormats);
+	if (status != CL_SUCCESS)
+	{
+		fprintf(stderr, "%s: Cannot get the supported image formats.\n", argv0);
+		exit(EXIT_FAILURE);
+	}
+
+	cl_image_format imageFormats[numFormats];
+	status = clGetSupportedImageFormats(clContext, CL_MEM_READ_WRITE, CL_MEM_OBJECT_IMAGE2D, numFormats, imageFormats, &numFormats);
+	if (status != CL_SUCCESS)
+	{
+		fprintf(stderr, "%s: Cannot get the size of the supported image formats.\n", argv0);
+		exit(EXIT_FAILURE);
+	}
+
+	for (int i = 0; i < numFormats; i++)
+	{
+		char format[256];
+		strcpy(format, chanOrder(imageFormats[i].image_channel_order));
+		strcat(format, " ");
+		strcat(format, chanType(imageFormats[i].image_channel_data_type));
+		if (i == 0)
+		{
+			printWithKey(indent, "Image Formats", format);
+		}
+		else
+		{
+			printWithKey(indent, NULL, format);
+		}
+	}
+}
 
 /*****************************************************************************\
 ▏ Main                                                                        ▕
@@ -586,6 +817,11 @@ int main (int argc, char* argv[])
 							putchar('\n');
 						}
 					}
+				}
+
+				if (level == ADVANCED)
+				{
+					printSupportedImageFormats(argv[0], devices[j], indent);
 				}
 
 				if (style == PRETTY)
