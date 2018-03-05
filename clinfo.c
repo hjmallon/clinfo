@@ -875,7 +875,7 @@ void printString(size_t indent, const char* key, void* value, size_t size, Print
 
 void printStringValue(size_t indent, const char* key, void* value, size_t size, Printer print)
 {
-	printf("%s\n", value);
+	printf("%s\n", (char*)value);
 }
 
 void printDeviceType(size_t indent, const char* key, void* value, size_t size, Printer print)
@@ -929,7 +929,7 @@ void printUlong(size_t indent, const char* key, void* value, size_t size, Printe
 {
 	const cl_ulong num = *((cl_ulong*)value);
 	char buffer[(num > 0 ? lrint(log10(num)) + 1 : 1) + 1];
-	sprintf(buffer, "%llu", num);
+	sprintf(buffer, "%llu", (unsigned long long)num);
 	print(indent, key, buffer);
 }
 
