@@ -185,6 +185,24 @@ const DeviceParameter device_parameters[] = {
 	{ CL_DEVICE_INTEGRATED_MEMORY_NV, "CL_DEVICE_INTEGRATED_MEMORY_NV", "NVIDIA: Integrated with memory", printBool, printBool, ADVANCED },
 #endif
 
+	// cl_amd_device_attribute_query
+#ifndef CL_DEVICE_BOARD_NAME_AMD
+	#define CL_DEVICE_BOARD_NAME_AMD 0x4038
+	#define CL_DEVICE_GLOBAL_FREE_MEMORY_AMD 0x4039
+	#define CL_DEVICE_SIMD_PER_COMPUTE_UNIT_AMD 0x4040
+	#define CL_DEVICE_SIMD_WIDTH_AMD 0x4041
+	#define CL_DEVICE_SIMD_INSTRUCTION_WIDTH_AMD 0x4042
+	#define CL_DEVICE_WAVEFRONT_WIDTH_AMD 0x4043
+#endif
+#ifdef CL_DEVICE_BOARD_NAME_AMD
+	{ CL_DEVICE_BOARD_NAME_AMD, "CL_DEVICE_BOARD_NAME_AMD", "AMD: Board name", printString, printString, ADVANCED },
+	{ CL_DEVICE_GLOBAL_FREE_MEMORY_AMD, "CL_DEVICE_GLOBAL_FREE_MEMORY_AMD", "AMD: Board name", printUint, printUint, ADVANCED },
+	{ CL_DEVICE_SIMD_PER_COMPUTE_UNIT_AMD, "CL_DEVICE_SIMD_PER_COMPUTE_UNIT_AMD", "AMD: Board name", printUint, printUint, ADVANCED },
+	{ CL_DEVICE_SIMD_WIDTH_AMD, "CL_DEVICE_SIMD_WIDTH_AMD", "AMD: Board name", printUint, printUint, ADVANCED },
+	{ CL_DEVICE_SIMD_INSTRUCTION_WIDTH_AMD, "CL_DEVICE_SIMD_INSTRUCTION_WIDTH_AMD", "AMD: Board name", printUint, printUint, ADVANCED },
+	{ CL_DEVICE_WAVEFRONT_WIDTH_AMD, "CL_DEVICE_WAVEFRONT_WIDTH_AMD", "AMD: Board name", printUint, printUint, ADVANCED },
+#endif
+
 	// Memory
 	{ CL_DEVICE_GLOBAL_MEM_SIZE, "CL_DEVICE_GLOBAL_MEM_SIZE", "Global memory size", printUlong, printMemSize, BASIC },
 	{ CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE", "Global memory cache size", printUlong, printMemSize, ADVANCED },
