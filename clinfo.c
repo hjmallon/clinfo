@@ -624,7 +624,8 @@ void printDeviceInfo(const char* argv0, cl_device_id device, cl_device_info para
 	cl_int status = clGetDeviceInfo(device, param, 0, NULL, &buffer_size);
 	if (status != CL_SUCCESS)
 	{
-		fprintf(stderr, "%s: Cannot get the size of the '%s' device parameter.\n", argv0, name);
+		// This means unsupported. Fail quietly.
+		// fprintf(stderr, "%s: Cannot get the size of the '%s' device parameter.\n", argv0, name);
 		return;
 	}
 
@@ -648,7 +649,7 @@ void printSupportedImageFormats(const char* argv0, cl_device_id device, size_t i
 	cl_int status = clGetSupportedImageFormats(clContext, CL_MEM_READ_WRITE, CL_MEM_OBJECT_IMAGE2D, 0, NULL, &numFormats);
 	if (status != CL_SUCCESS)
 	{
-		fprintf(stderr, "%s: Cannot get the supported image formats.\n", argv0);
+		fprintf(stderr, "%s: Cannot get the size of the supported image formats.\n", argv0);
 		exit(EXIT_FAILURE);
 	}
 
@@ -656,7 +657,7 @@ void printSupportedImageFormats(const char* argv0, cl_device_id device, size_t i
 	status = clGetSupportedImageFormats(clContext, CL_MEM_READ_WRITE, CL_MEM_OBJECT_IMAGE2D, numFormats, imageFormats, &numFormats);
 	if (status != CL_SUCCESS)
 	{
-		fprintf(stderr, "%s: Cannot get the size of the supported image formats.\n", argv0);
+		fprintf(stderr, "%s: Cannot get the supported image formats.\n", argv0);
 		exit(EXIT_FAILURE);
 	}
 
