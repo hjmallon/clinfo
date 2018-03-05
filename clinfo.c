@@ -174,6 +174,17 @@ const DeviceParameter device_parameters[] = {
 	{ CL_DEVICE_PRINTF_BUFFER_SIZE, "CL_DEVICE_PRINTF_BUFFER_SIZE", "Printf buffer size", printSize, printMemSize, ADVANCED },
 #endif
 
+	// cl_nv_device_attribute_query
+#ifdef CL_DEVICE_COMPUTE_CAPABILITY_MAJOR_NV
+	{ CL_DEVICE_COMPUTE_CAPABILITY_MAJOR_NV, "CL_DEVICE_COMPUTE_CAPABILITY_MAJOR_NV", "CUDA major", printUint, printUint, ADVANCED },
+	{ CL_DEVICE_COMPUTE_CAPABILITY_MINOR_NV, "CL_DEVICE_COMPUTE_CAPABILITY_MINOR_NV", "CUDA minor", printUint, printUint, ADVANCED },
+	{ CL_DEVICE_REGISTERS_PER_BLOCK_NV, "CL_DEVICE_REGISTERS_PER_BLOCK_NV", "Registers per block", printUint, printUint, ADVANCED },
+	{ CL_DEVICE_WARP_SIZE_NV, "CL_DEVICE_WARP_SIZE_NV", "Warp size", printUint, printUint, ADVANCED },
+	{ CL_DEVICE_GPU_OVERLAP_NV, "CL_DEVICE_GPU_OVERLAP_NV", "Concurrently copy", printBool, printBool, ADVANCED },
+	{ CL_DEVICE_KERNEL_EXEC_TIMEOUT_NV, "CL_DEVICE_KERNEL_EXEC_TIMEOUT_NV", "Run time limit", printBool, printBool, ADVANCED },
+	{ CL_DEVICE_INTEGRATED_MEMORY_NV, "CL_DEVICE_INTEGRATED_MEMORY_NV", "Integrated with memory", printBool, printBool, ADVANCED },
+#endif
+
 	// Memory
 	{ CL_DEVICE_GLOBAL_MEM_SIZE, "CL_DEVICE_GLOBAL_MEM_SIZE", "Global memory size", printUlong, printMemSize, BASIC },
 	{ CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE", "Global memory cache size", printUlong, printMemSize, ADVANCED },
